@@ -1,26 +1,33 @@
+import { useRef } from "react";
 import { useState } from "react";
 
 export default function Login() {
 
-  const [enteredValues, setEnteredValues] = useState({
-    email: '',
-    password: ''
-  })
+  // const [enteredValues, setEnteredValues] = useState({
+  //   email: '',
+  //   password: ''
+  // })
+
+  const email = useRef();
+  const password = useRef();
 
   function handleSubmit(event){
     event.preventDefault();
 
+    const enteredEmail = email.current.value;
+    const enteredPassword = password.current.value;
+
+    console.log("email :",enteredEmail);
+    console.log("password : ",enteredPassword);
     
-    console.log('user email : ' + enteredValues.email); 
-    console.log('user password : ' + enteredValues.password); 
   }
   
-  function handleInputChange(event){
-    setEnteredValues((preValues) => ({
-      ...preValues,
-      [event.target.id]: event.target.value
-    }))
-  }
+  // function handleInputChange(event){
+  //   setEnteredValues((preValues) => ({
+  //     ...preValues,
+  //     [event.target.id]: event.target.value
+  //   }))
+  // }
 
   return (
     <form onSubmit={handleSubmit}>
@@ -33,8 +40,7 @@ export default function Login() {
             id="email" 
             type="email" 
             name="email" 
-            onChange={handleInputChange}
-            value={enteredValues.email}
+            ref={email}
           />
         </div>
 
@@ -44,8 +50,7 @@ export default function Login() {
             id="password" 
             type="password" 
             name="password" 
-            onChange={handleInputChange}
-            value={enteredValues.password}  
+            ref={password}  
           />
         </div>
       </div>
