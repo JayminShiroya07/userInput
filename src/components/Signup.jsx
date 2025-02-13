@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 export default function Signup() {
-  const [passwordNotMatched, setPasswordNotMatched] = useState(false);
+  const [passwordsAreNotEqual, setPasswordsAreNotEqual] = useState(false);
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -12,14 +12,11 @@ export default function Signup() {
     data.acquisition = acquisitionChannel;
 
     if (data.password !== data['confirm-password']) {
-      setPasswordNotMatched(true);
+      setPasswordsAreNotEqual(true);
       return;
     }
-    
-    setPasswordNotMatched(false);
-    console.log(data)
 
-    event.target.reset();
+    console.log(data);
   }
 
   return (
@@ -51,14 +48,9 @@ export default function Signup() {
             type="password"
             name="confirm-password"
             required
-
           />
           <div className="control-error">
-            {
-              passwordNotMatched
-              &&
-              <p>Password and Confirm Password not matched.</p>
-            }
+            {passwordsAreNotEqual && <p>Passwords must match.</p>}
           </div>
         </div>
       </div>
@@ -118,8 +110,13 @@ export default function Signup() {
 
       <div className="control">
         <label htmlFor="terms-and-conditions">
-          <input type="checkbox" id="terms-and-conditions" name="terms" required />I
-          agree to the terms and conditions
+          <input
+            type="checkbox"
+            id="terms-and-conditions"
+            name="terms"
+            required
+          />
+          I agree to the terms and conditions
         </label>
       </div>
 
